@@ -5,6 +5,8 @@ const boxen = require("boxen");
 const yargs = require("yargs");
 const axios = require("axios");
 
+const { fetchUser } = require('./src/fetchUser');
+
 const token = "be94e3e8b03a88ca0d4d8cffa06cd6b89de4964c"
 
 const options = yargs
@@ -14,6 +16,15 @@ const options = yargs
  .argv;
 
 
-const findLang = async () => {
+ const findLang = async () => {
 
-}
+
+
+
+   let userRepos = await fetchUser(options.username, token)
+   console.log(userRepos);
+
+
+
+ }
+ findLang();
