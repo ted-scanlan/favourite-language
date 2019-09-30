@@ -4,7 +4,7 @@ const chalk = require("chalk");
 const boxen = require("boxen");
 const yargs = require("yargs");
 const axios = require("axios");
-
+require('dotenv').config();
 const { fetchUser } = require('./src/fetchUser');
 const { fetchLanguages } = require('./src/fetchLanguages');
 const { filterEmpties } = require('./src/calculateLanguage');
@@ -12,7 +12,10 @@ const { sumOfLanguages } = require('./src/calculateLanguage');
 const { delete1 } = require('./src/calculateLanguage');
 const { favLang } = require('./src/calculateLanguage');
 
-const token = "be94e3e8b03a88ca0d4d8cffa06cd6b89de4964c"
+
+API_KEY = process.env.API_KEY
+
+
 
 const options = yargs
  .usage("Usage: -u <username>")
@@ -21,18 +24,20 @@ const options = yargs
  .argv;
 
 
+
+
  const findLang = async () => {
 
-   let userRepos = await fetchUser(options.username, token)
+   let userRepos = await fetchUser(options.username, API_KEY)
    let languages = []
 
-   const findLangs = async (username, token) => {
+   const findLangs = async (username, API_KEY) => {
      for (i = 0; i < userRepos.length; i++) {
-       let response = await fetchLanguages(username, userRepos[i]['name'], token)
+       let response = await fetchLanguages(username, userRepos[i]['name'], API_KEY)
        languages.push(response.data);
      }
    }
-   await findLangs(options.username, token);
+   await findLangs(options.username, API_KEY);
    let final = await filterEmpties(languages);
     let sum = await sumOfLanguages(final);
     let filtered = await delete1(sum);
