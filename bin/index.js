@@ -7,6 +7,8 @@ const axios = require("axios");
 
 const { fetchUser } = require('./src/fetchUser');
 const { fetchLanguages } = require('./src/fetchLanguages');
+const { filterEmpties } = require('./src/calculateLanguage');
+
 
 const token = "be94e3e8b03a88ca0d4d8cffa06cd6b89de4964c"
 
@@ -19,29 +21,22 @@ const options = yargs
 
  const findLang = async () => {
 
-
-
-
    let userRepos = await fetchUser(options.username, token)
 
    let languages = []
 
-  const findLangs = async (username, token) => {
+   const findLangs = async (username, token) => {
 
-    for (i = 0; i < userRepos.length; i++) {
+     for (i = 0; i < userRepos.length; i++) {
+       let response = await fetchLanguages(username, userRepos[i]['name'], token)
+       languages.push(response.data);
+     }
+   }
+   await findLangs(options.username, token);
 
-    let response = await fetchLanguages(username, userRepos[i]['name'], token)
-console.log(response);
-    languages.push(response);
+   let final = await filterEmpties(languages);
 
-    }
-
-
-}
-await findLangs(options.username, token);
-
-
-
+  
 
 
  }
