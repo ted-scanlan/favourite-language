@@ -8,7 +8,7 @@ const axios = require("axios");
 const { fetchUser } = require('./src/fetchUser');
 const { fetchLanguages } = require('./src/fetchLanguages');
 const { filterEmpties } = require('./src/calculateLanguage');
-
+const { sumOfLanguages } = require('./src/calculateLanguage');
 
 const token = "be94e3e8b03a88ca0d4d8cffa06cd6b89de4964c"
 
@@ -35,8 +35,9 @@ const options = yargs
    await findLangs(options.username, token);
 
    let final = await filterEmpties(languages);
-
-  
+      console.log(final)
+    let sum = await sumOfLanguages(final)
+    console.log(sum);
 
 
  }
