@@ -23,7 +23,12 @@ cd favourite-language
 npm install
 ```
 
-Then acquire a github personal access token (https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) and save in the  file insert your token into the .env file in the root of the directory.
+Then acquire a github personal access token (https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) and then in the root directory:
+
+```
+touch '.env'
+echo "API_KEY = 'YOUR_KEY'" >> '.env'
+```
 
 to run program:
 
