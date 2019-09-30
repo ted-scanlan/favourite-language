@@ -5,6 +5,7 @@ const boxen = require("boxen");
 const yargs = require("yargs");
 const axios = require("axios");
 require('dotenv').config();
+
 const { fetchUser } = require('./src/fetchUser');
 const { fetchLanguages } = require('./src/fetchLanguages');
 const { filterEmpties } = require('./src/calculateLanguage');
@@ -15,16 +16,19 @@ const { favLang } = require('./src/calculateLanguage');
 
 API_KEY = process.env.API_KEY
 
-
-
 const options = yargs
  .usage("Usage: -u <username>")
  .option("u", { alias: "username", describe: "enter username", type: "string", demandOption: true })
  .option("s", { alias: "search", describe: "Search term", type: "string"})
  .argv;
 
-
-
+ const boxenOptions = {
+  padding: 1,
+  margin: 1,
+  borderStyle: "round",
+  borderColor: "green",
+  backgroundColor: "#555555"
+};
 
  const findLang = async () => {
 
@@ -39,10 +43,12 @@ const options = yargs
    }
    await findLangs(options.username, API_KEY);
    let final = await filterEmpties(languages);
-    let sum = await sumOfLanguages(final);
-    let filtered = await delete1(sum);
-    let favLanguage = await favLang(filtered, sum);
-    console.log(favLanguage);
+   let sum = await sumOfLanguages(final);
+   let filtered = await delete1(sum);
+   let favLanguage = await favLang(filtered, sum);
+
+   const msgBox = boxen( `${options.username}'s favourite language is: ${favLanguage}`, boxenOptions );
+   console.log(msgBox);
 
  }
  findLang();
