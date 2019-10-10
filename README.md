@@ -2,7 +2,7 @@
 
 # Github Command Line App #
 
-I thought I would use the test as an opportunity to try something new. I therefore built a command line app using Node.js, as I had not used it during the Makers course and Node is something I'd like to start incorporating into my projects going forward, as it makes sense to use a single language across the stack. I am also more interested in back-end development and I like the idea of building cool command line apps that you can start up anywhere in your computer.
+My first short project using Nodejs to build a command line app that takes a Github username and returns that users favourite language. I wanted to use Node.js, as I had not used it during the Makers course and Node is something I'd like to start incorporating into my projects going forward, as it makes sense to use a single language across the stack. I am also more interested in back-end development and I like the idea of building cool command line apps that you can start up anywhere in your computer.
 
 
 ## My Approach ##
@@ -41,6 +41,7 @@ to run from anywhere in the command line:
 npm install -g .
 favourite-language -u <username>
 ```
+
 
 to run tests:
 
