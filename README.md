@@ -32,8 +32,13 @@ echo "API_KEY = 'YOUR_KEY'" >> '.env'
 
 to run program:
 
-go to anywhere in your command line
 ```
+node . -u <username>
+```
+
+to run from anywhere in the command line:
+```
+npm install -g .
 favourite-language -u <username>
 ```
 

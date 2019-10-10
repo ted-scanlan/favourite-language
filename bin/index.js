@@ -12,6 +12,8 @@ const { filterEmpties } = require('./src/calculateLanguage');
 const { sumOfLanguages } = require('./src/calculateLanguage');
 const { delete1 } = require('./src/calculateLanguage');
 const { favLang } = require('./src/calculateLanguage');
+const { sortLanguages } = require('./src/sortLanguages');
+
 
 
 API_KEY = process.env.API_KEY
@@ -35,20 +37,44 @@ const options = yargs
    let userRepos = await fetchUser(options.username, API_KEY)
    let languages = []
 
-   const findLangs = async (username, API_KEY) => {
-     for (i = 0; i < userRepos.length; i++) {
-       let response = await fetchLanguages(username, userRepos[i]['name'], API_KEY)
-       languages.push(response.data);
-     }
+   let repoArray = []
+   for (i = 0; i < userRepos.length; i++) {
+     repoArray.push(userRepos[i]['name'])
    }
-   await findLangs(options.username, API_KEY);
-   let final = await filterEmpties(languages);
-   let sum = await sumOfLanguages(final);
-   let filtered = await delete1(sum);
-   let favLanguage = await favLang(filtered, sum);
 
-   const msgBox = boxen( `${options.username}'s favourite language is: ${favLanguage}`, boxenOptions );
-   console.log(msgBox);
+
+   let repoLanguages = []
+
+   const findLangs = async (username, API_KEY) => {
+
+
+     for (i = 0; i < repoArray.length; i++) {
+       axios.get(`http://api.github.com/repos/${username}/${repoArray[i]}/languages`, {
+       headers: {
+         Authorization: 'Bearer ' + API_KEY
+       }
+     })
+     .then(response => {
+         const apiResponse = response.data;
+         repoLanguages.push(apiResponse);
+          })
+          // .catch(response => {
+          //   console.log(response);
+          // })
+     }
+
+    setTimeout(() => sortLanguages(repoLanguages, username), 700);
+   }
+   findLangs(options.username, API_KEY);
+   // setTimeout(() => console.log(x), 400);
+
+   // let final = await filterEmpties(languages);
+   // let sum = await sumOfLanguages(final);
+   // let filtered = await delete1(sum);
+   // let favLanguage = await favLang(filtered, sum);
+
+   // const msgBox = boxen( `${options.username}'s favourite language is: ${favLanguage}`, boxenOptions );
+   // console.log(msgBox);
 
  }
  findLang();
