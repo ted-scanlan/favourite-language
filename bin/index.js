@@ -58,23 +58,11 @@ const options = yargs
          const apiResponse = response.data;
          repoLanguages.push(apiResponse);
           })
-          // .catch(response => {
-          //   console.log(response);
-          // })
      }
 
     setTimeout(() => sortLanguages(repoLanguages, username), 700);
    }
    findLangs(options.username, API_KEY);
-   // setTimeout(() => console.log(x), 400);
-
-   // let final = await filterEmpties(languages);
-   // let sum = await sumOfLanguages(final);
-   // let filtered = await delete1(sum);
-   // let favLanguage = await favLang(filtered, sum);
-
-   // const msgBox = boxen( `${options.username}'s favourite language is: ${favLanguage}`, boxenOptions );
-   // console.log(msgBox);
 
  }
  findLang();

@@ -14,13 +14,13 @@ function sortLanguages(array, user) {
    borderColor: "green",
    backgroundColor: "#555555"
  };
-  // setTimeout(() => console.log(hash), 500);
+  
   let favLanguage = Object.keys(hash).find(key => hash[key] === Math.max(...values))
 
    const msgBox = boxen( `${user}'s favourite language is: ${favLanguage}`, boxenOptions );
    console.log(msgBox);
 
-   // setTimeout(() => console.log(Object.keys(hash).find(key => hash[key] === Math.max(...values))), 500);
+
 }
 
 function createLangHash(filteredArray) {
